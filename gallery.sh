@@ -8,9 +8,10 @@
  
 filedate=$(date +%m%d%y%H%M%S)
 
-index_file=index.html
-IMAGE_DIR=${1-img}
-THUMBS_DIR=thumbs
+IMAGE_DIR=${1:-img}
+THUMBS_DIR=${2:-thumbs}
+index_file=${3:-index.html}
+title=${4:-gallery}
 ##############################
 # make thumbnails.
 #############################
@@ -37,7 +38,6 @@ echo "making index file ... "
 # make index page
 ##############################
  
-title=${2:-galeria}
 
 cat > $index_file <<EOF
 <html class="">
