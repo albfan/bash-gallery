@@ -9,14 +9,15 @@
 filedate=$(date +%m%d%y%H%M%S)
 
 index_file=index.html
-DIR=img
+IMAGE_DIR=img
+THUMBS_DIR=thumbs
 ##############################
 # make thumbnails.
 #############################
 
 echo "normalize img ... "
 
-for i in $(ls $DIR/*.*); do 
+for i in $(ls $IMAGE_DIR/*.*); do 
    lower=$(echo "$i" | sed -r "s/([^.]*)\$/\L\1/")
    if [ "$lower" != "$i" ]
    then
@@ -26,14 +27,14 @@ done
 
 echo "making thumbnails ... "
  
-for i in $(ls $DIR/*.jpg); do 
-   convert $i -thumbnail x200 -resize '200x<' -resize 50% -gravity center -crop 100x100+0+0 +repage -format jpg -quality 91 thumb.$(basename $i)
+mkdir -p $THUMBS_DIR
+rm -rf $THUMBS_DIR/*
+
+for i in $(ls $IMAGE_DIR/*.jpg); do 
+   convert $i -thumbnail x200 -resize '200x<' -resize 50% -gravity center -crop 100x100+0+0 +repage -format jpg -quality 91 $THUMBS_DIR/thumb.$(basename $i)
 done
  
-mkdir thumbs
-mv thumb* thumbs
-ls thumbs/
- 
+ls $THUMBS_DIR 
 echo "thumbs done ... "
  
 echo "making index file ... "
@@ -67,7 +68,7 @@ echo "
       <p>Click on a thumbnail to see the full size image.</p>
       <p>Newest comments added at the bottom of the page. <a href="#comment">Go down : add comment</a></p>" >> $index_file
  
-for i in $(ls $DIR/*.jpg); do
+for i in $(ls $IMAGE_DIR/*.jpg); do
    echo "<p><a href=\"$i\" target=\"_blank\"><img src=\"thumbs/thumb.$(basename $i)\"><br>$i</a></p>" >> $index_file
 done
  
