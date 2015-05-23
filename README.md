@@ -1,6 +1,6 @@
 # bash-gallery
 
-Easily create a grid with your photos
+Easily create a web grid with your photos
 
 ## Background
 
@@ -12,14 +12,17 @@ In these days of chromecast I want to share easily my photos and control over an
 - goto your image directory
 - launch
     
-    $ gallery.sh <imgdir> "<my title>"
+    $ gallery.sh [img_dir] [thumbs_dir] [index_file] [title] 
 
-Results will be in index.html
+All parameters are optional, default to `gallery.sh img thumbs index.html gallery`
+
+Results will be in &lt;index_file&gt;
 
 - [optional] share with your chromecast
 
 ## Credits
 
 http://codepen.io/bradfrost/pen/xkcBn
+
 http://wiki.tonybaldwin.me/doku.php/hax/bash/photogal
 
