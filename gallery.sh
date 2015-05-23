@@ -7,15 +7,17 @@
 #################################################
  
 filedate=$(date +%m%d%y%H%M%S)
+
 index_file=index.html
+DIR=img
 ##############################
 # make thumbnails.
 #############################
  
 echo "making thumbnails ... "
  
-for i in $(ls *.jpg); do 
-convert $i -thumbnail x200 -resize '200x<' -resize 50% -gravity center -crop 100x100+0+0 +repage -format jpg -quality 91 thumb.$i
+for i in $(ls $DIR/*.jpg); do 
+   convert $i -thumbnail x200 -resize '200x<' -resize 50% -gravity center -crop 100x100+0+0 +repage -format jpg -quality 91 thumb.$(basename $i)
 done
  
 mkdir thumbs
@@ -55,8 +57,8 @@ echo "
       <p>Click on a thumbnail to see the full size image.</p>
       <p>Newest comments added at the bottom of the page. <a href="#comment">Go down : add comment</a></p>" >> $index_file
  
-for i in $(ls *.jpg); do
- echo "<p><a href=\"$i\" target=\"_blank\"><img src=\"thumbs/thumb.$i\"><br>$i</a></p>" >> index.php
+for i in $(ls $DIR/*.jpg); do
+   echo "<p><a href=\"$i\" target=\"_blank\"><img src=\"thumbs/thumb.$(basename $i)\"><br>$i</a></p>" >> $index_file
 done
  
 echo "
