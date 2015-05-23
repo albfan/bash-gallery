@@ -45,43 +45,45 @@ echo "making index file ... "
  
 title=${1:-galeria}
 
-rm $index_file
-
-echo "
-<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\"> 
+cat > $index_file <<EOF
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
 <html>
    <head> 
-      <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"> 
-      <link href=\"http://YOURURL.com/photo.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\"> 
-      <meta name=\"Author\" content=\"YOUR NAME HERE\"> 
-      <meta name=\"Description\" content=\"photos by YOUR NAME HERE\"> 
-      <meta name=\"Generator\" content=\"photogal bash script by tony baldwin\">
-      <meta name=\"Keywords\" content=\"photos\"> 
-      <meta name=\"Language\" content=\"en\"> 
-      <link rel=\"icon\" type=\"image/png\" href=\"http://YOURURL.com/favicon.png\"> 
+      <meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+      <link href="http://YOURURL.com/photo.css" rel="stylesheet" type="text/css" media="screen"> 
+      <meta name="Author" content="YOUR NAME HERE"> 
+      <meta name="Description" content="photos by YOUR NAME HERE"> 
+      <meta name="Generator" content="photogal bash script by tony baldwin">
+      <meta name="Keywords" content="photos"> 
+      <meta name="Language" content="en"> 
+      <link rel="icon" type="image/png" href="http://YOURURL.com/favicon.png"> 
       <title>tony's photos - $title - $filedate</title> 
    </head> 
    <body> 
-      <div id=\"header\"> 
-         <p><a href=\"http://YOURURL.com\"><img src=\"http://YOURURL.com/LOGOIMG.jpg\"><br>photography by YOURNAME</a></p> 
+      <div id="header"> 
+         <p><a href="http://YOURURL.com"><img src="http://YOURURL.com/LOGOIMG.jpg"><br>photography by YOURNAME</a></p> 
       </div>
-   <div id=\"main\"> 
+   <div id="main"> 
       <p> $title - $filedate</p> 
       <p>Click on a thumbnail to see the full size image.</p>
-      <p>Newest comments added at the bottom of the page. <a href="#comment">Go down : add comment</a></p>" >> $index_file
+      <p>Newest comments added at the bottom of the page. <a href="#comment">Go down : add comment</a></p>
+EOF
  
 for i in $(ls $IMAGE_DIR/*.jpg); do
-   echo "<p><a href=\"$i\" target=\"_blank\"><img src=\"thumbs/thumb.$(basename $i)\"><br>$i</a></p>" >> $index_file
+   cat >> $index_file <<EOF
+      <p><a href="$i" target="_blank"><img src="thumbs/thumb.$(basename $i)"><br>$i</a></p>
+EOF
 done
  
-echo "
+cat >> $index_file <<EOF
    </div>
    <!-- start footer --> 
-   <div id=\"footer\"> 
-      <p>all images &copy <a href=\"http://www.YOURURL.tld\">YOUR NAME HERE</a></p> 
-      <p>The gallery generation scripts with which this was was generated are <a href=\"http://wiki.tonybaldwin.me/doku.php/hax/bash/photogal\">available at wiki.tonybaldwin.me</a></p> 
+   <div id="footer"> 
+      <p>all images &copy <a href="http://www.YOURURL.tld">YOUR NAME HERE</a></p> 
+      <p>The gallery generation scripts with which this was was generated are <a href="http://wiki.tonybaldwin.me/doku.php/hax/bash/photogal">available at wiki.tonybaldwin.me</a></p> 
    </div> 
    <!-- end footer --> 
 </body>
-</html>" >> $index_file
+</html>
+EOF
  
