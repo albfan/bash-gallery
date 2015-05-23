@@ -9,7 +9,7 @@
 filedate=$(date +%m%d%y%H%M%S)
 
 index_file=index.html
-IMAGE_DIR=img
+IMAGE_DIR=${1-img}
 ##############################
 # make thumbnails.
 #############################
@@ -20,7 +20,7 @@ echo "making index file ... "
 # make index page
 ##############################
  
-title=${1:-galeria}
+title=${2:-galeria}
 
 cat > $index_file <<EOF
 <html class="">
@@ -103,10 +103,14 @@ cat > $index_file <<EOF
          <ul class="g">
 EOF
  
-for i in $(ls $IMAGE_DIR/*.jpg); do
-   cat >> $index_file <<EOF
+for i in $(ls $IMAGE_DIR/*.*); do
+   lower=$(echo "$i" | sed -r "s/.*\.([^.]*)\$/\L\1/")
+   if [ "$lower" == "jpg" ]
+   then
+      cat >> $index_file <<EOF
             <li><a href="$i"><img src="$i"><br>$i</a></li>
 EOF
+   fi
 done
  
 cat >> $index_file <<EOF
