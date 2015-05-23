@@ -46,43 +46,116 @@ echo "making index file ... "
 title=${1:-galeria}
 
 cat > $index_file <<EOF
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
-<html>
-   <head> 
-      <meta http-equiv="content-type" content="text/html; charset=utf-8"> 
-      <link href="http://YOURURL.com/photo.css" rel="stylesheet" type="text/css" media="screen"> 
-      <meta name="Author" content="YOUR NAME HERE"> 
-      <meta name="Description" content="photos by YOUR NAME HERE"> 
-      <meta name="Generator" content="photogal bash script by tony baldwin">
-      <meta name="Keywords" content="photos"> 
-      <meta name="Language" content="en"> 
-      <link rel="icon" type="image/png" href="http://YOURURL.com/favicon.png"> 
-      <title>tony's photos - $title - $filedate</title> 
-   </head> 
-   <body> 
-      <div id="header"> 
-         <p><a href="http://YOURURL.com"><img src="http://YOURURL.com/LOGOIMG.jpg"><br>photography by YOURNAME</a></p> 
-      </div>
-   <div id="main"> 
-      <p> $title - $filedate</p> 
-      <p>Click on a thumbnail to see the full size image.</p>
-      <p>Newest comments added at the bottom of the page. <a href="#comment">Go down : add comment</a></p>
+<html class="">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="robots" content="noindex">
+      <link rel="canonical" href="http://codepen.io/bradfrost/pen/xkcBn">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet prefetch" href="http://bradfrost.github.com/this-is-responsive/styles.css">
+      <style type="text/css" class="cp-pen-styles">
+      <title>$title - $filedate</title>
+.g {
+   padding: 0.25em;
+   overflow: hidden;
+}
+
+.g li {
+   float: left;
+   width: 50%;
+   padding: 0.25em;
+}
+
+.g img {
+   display: block;
+}
+
+.g li:nth-child(odd) {
+   clear: left;
+}
+
+  @media screen and (min-width: 40em) {
+     .g li {
+        width: 33.3333333333333333%;
+     }
+     .g li:nth-child(3n+1) {
+        clear: left;
+     }
+     .g li:nth-child(odd) {
+        clear: none;
+     }
+  }
+
+  @media screen and (min-width: 55em) {
+     .g li {
+        width: 25%;
+     }
+     .g li:nth-child(4n+1) {
+        clear: left;
+     }
+     .g li:nth-child(3n+1) {
+        clear: none;
+     }
+  }
+
+  @media screen and (min-width: 72em) {
+     .g li {
+        width: 20%;
+     }
+     .g li:nth-child(5n+1) {
+        clear: left;
+     }
+     .g li:nth-child(4n+1) {
+        clear: none;
+     }
+  }
+
+  @media screen and (min-width: 90em) {
+     .g li {
+        width: 16.666666666%;
+     }
+     .g li:nth-child(6n+1) {
+        clear: left;
+     }
+     .g li:nth-child(5n+1) {
+        clear: none;
+     }
+  }</style></head><body>
+      <!--Pattern HTML-->
+      <div id="pattern" class="pattern">
+         <ul class="g">
 EOF
  
 for i in $(ls $IMAGE_DIR/*.jpg); do
    cat >> $index_file <<EOF
-      <p><a href="$i" target="_blank"><img src="thumbs/thumb.$(basename $i)"><br>$i</a></p>
+            <li><a href="$i" target="_blank"><img src="thumbs/thumb.$(basename $i)"><br>$i</a></li>
 EOF
 done
  
 cat >> $index_file <<EOF
-   </div>
-   <!-- start footer --> 
-   <div id="footer"> 
-      <p>all images &copy <a href="http://www.YOURURL.tld">YOUR NAME HERE</a></p> 
-      <p>The gallery generation scripts with which this was was generated are <a href="http://wiki.tonybaldwin.me/doku.php/hax/bash/photogal">available at wiki.tonybaldwin.me</a></p> 
-   </div> 
-   <!-- end footer --> 
+         </ul>
+      </div>
+      <!--End Pattern HTML-->
+
+      <div class="container">	
+         <section class="pattern-description">
+            <h1>Image Grid</h1>
+            <p>A list of images that by default is two-columns. As screen real estate becomes available, more columns are added.</p>
+            <h2>Considerations</h2>
+            <ul>
+               <li>Assume small screen by default. Add columns as necessary.</li>
+            </ul>
+         </section>
+         <footer role="contentinfo">   
+            <div>
+               <nav id="menu">
+                  <a href="http://bradfrost.github.com/this-is-responsive/patterns.html">←More Responsive Patterns</a>
+               </nav>
+            </div>
+         </footer>
+      </div>
+
+      <script src="/assets/editor/live/css_live_reload_init.js"></script>
 </body>
 </html>
 EOF
