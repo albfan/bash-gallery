@@ -2,7 +2,6 @@
  
 #################################################
 # script to make an html photo gallery with thumbnails
-# to upload to my server.
 # by tony baldwin / tonybaldwin.info
 # released according to the terms of the Gnu Public License v. 3 or later
 #################################################
@@ -69,22 +68,3 @@ echo "</div>
 <!-- end footer --> 
 </body></html>" >> index.php
  
-echo "all done ...  load em up!"
- 
-###########################
-# scp copy to server
-##########################
- 
- 
-scp -r $(pwd) USERNAME@IPADDRESSORURL:/path/to/directory/
- 
-pdir=${PWD##*/}
- 
-echo "Your gallery is now at http://YOURURL.com/DIRECTORY/$pdir"
-read -p "Would you like to open it in your a browser now? (y/n): " op
- 
-if [ $op = "y" ]; then
-	xdg-open http://YOURURL.com/DIRECTORY/$pdir
-fi
- 
-exit
