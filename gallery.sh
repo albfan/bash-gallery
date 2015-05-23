@@ -125,7 +125,7 @@ for i in $(ls $IMAGE_DIR/*.*); do
    if [ "$lower" == "jpg" ]
    then
    cat >> $index_file <<EOF
-            <li><a href="$i"><img src="thumbs/thumb.$(basename $i)"><br>$i</a></li>
+            <li><a href="$i"><img src="$THUMBS_DIR/thumb.$(basename $i)"><br>$i</a></li>
 EOF
    fi
 done
