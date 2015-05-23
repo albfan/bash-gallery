@@ -13,7 +13,17 @@ DIR=img
 ##############################
 # make thumbnails.
 #############################
- 
+
+echo "normalize img ... "
+
+for i in $(ls $DIR/*.*); do 
+   lower=$(echo "$i" | sed -r "s/([^.]*)\$/\L\1/")
+   if [ "$lower" != "$i" ]
+   then
+      mv "$i" "$lower"
+   fi
+done
+
 echo "making thumbnails ... "
  
 for i in $(ls $DIR/*.jpg); do 
